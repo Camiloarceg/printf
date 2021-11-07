@@ -3,20 +3,18 @@
 #include <unistd.h>
 #include <stdio.h>
 /**
- * _printf - a function that produces output according to a format.
- * @format: format string.
+ * switch_case - switch case functions.
+ * @buffer: pointer to buffer.
+ * @format: pointer to format.
+ * @count: pointer to count.
+ * @ap: argument pointer
  *
- * Return: count if chars printed.
+ * Return: new buffer.
  */
-int _printf(const char *format, ...)
+char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 {
-	int count, i = 0;
-	char *buffer;
-	va_list ap;
+	int i = 0;
 
-	va_start(ap, format);
-	count = sizeof(char) * 1;
-	buffer = (char *)malloc(count);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
@@ -25,26 +23,51 @@ int _printf(const char *format, ...)
 			switch (format[i])
 			{
 				case 'c':
-					buffer = nest(buffer, &count, &i, va_arg(ap, int));
+					buffer = nest(buffer, count, &i, va_arg(ap, int));
 					break;
 				case 's':
-					buffer = neststring(buffer, va_arg(ap, char *), &count, &i);
+					buffer = neststring(buffer, va_arg(ap, char *), count, &i);
 					break;
 				case '%':
-					buffer = nest(buffer, &count, &i, '%');
+					buffer = nest(buffer, count, &i, '%');
+					break;
+				case 'i':
+					buffer = nest_int(buffer, count, &i, va_arg(ap, int));
+					break;
+				case 'd':
+					buffer = nest_int(buffer, count, &i, va_arg(ap, int));
 					break;
 				case '\0':
 					break;
 				default:
-					buffer = nest(buffer, &count, &i, '%');
+					buffer = nest(buffer, count, &i, '%');
 					i--;
-					buffer = nest(buffer, &count, &i, format[i]);
+					buffer = nest(buffer, count, &i, format[i]);
 					break;
 			}
 			continue;
 		}
-		buffer = nest(buffer, &count, &i, format[i]);
+		buffer = nest(buffer, count, &i, format[i]);
 	}
+	return (buffer);
+}
+
+/**
+ * _printf - a function that produces output according to a format.
+ * @format: format string.
+ *
+ * Return: count if chars printed.
+ */
+int _printf(const char *format, ...)
+{
+	char *buffer;
+	int count;
+	va_list ap;
+
+	va_start(ap, format);
+	count = sizeof(char) * 1;
+	buffer = (char *)malloc(count);
+	buffer = switch_case(buffer, format, &count, ap);
 	write(1, buffer, count - 1);
 	free(buffer);
 	va_end(ap);
