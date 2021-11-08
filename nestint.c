@@ -16,7 +16,7 @@ char *nest_int(char *buffer, int *count, int *i, int n)
 
 	if (n < 0)
 	{
-		buffer = nest(buffer, count, i, '-');
+		buffer = nest(buffer, count, &j, '-');
 		x = -n;
 	}
 
@@ -24,8 +24,9 @@ char *nest_int(char *buffer, int *count, int *i, int n)
 		x = n;
 
 	if (x / 10)
+	{
 		buffer = nest_int(buffer, count, &j, x / 10);
-
+	}
 	buffer = nest(buffer, count, i, x % 10 + '0');
 
 	return (buffer);
