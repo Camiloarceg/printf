@@ -67,10 +67,13 @@ int _printf(const char *format, ...)
 	va_start(ap, format);
 	count = sizeof(char) * 1;
 	buffer = (char *)malloc(count);
-	if (buffer == NULL)
-		return(NULL);
+	if (!format || !buffer || (*format == '%' && *(format + 1) == '\0'))
+	{
+		free(buffer);
+		return (-1);
+	}
 	buffer = switch_case(buffer, format, &count, ap);
-	write(1, buffer, count - 1);
+	write(1, buffer, count);
 	free(buffer);
 	va_end(ap);
 	return (count);

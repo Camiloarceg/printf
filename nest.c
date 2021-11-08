@@ -16,7 +16,10 @@ char *nest(char *buffer, int *count, int *i, char c)
 
 	p = (char *)malloc(*count + 1);
 	if (p == NULL)
+	{
+		free(p);
 		return (NULL);
+	}
 	while (j < *count)
 	{
 		p[j] = buffer[j];

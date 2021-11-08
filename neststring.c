@@ -19,7 +19,10 @@ char *neststring(char *buffer, char *s, int *count, int *i)
 
 	p = (char *)malloc(*count);
 	if (p == NULL)
+	{
+		free(p);
 		return (NULL);
+	}
 
 	while (k < old_size)
 	{
