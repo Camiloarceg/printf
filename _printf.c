@@ -68,7 +68,7 @@ int _printf(const char *format, ...)
 	count = sizeof(char) * 1;
 	buffer = (char *)malloc(count);
 	if (buffer == NULL)
-		return(-1);
+		return(NULL);
 	buffer = switch_case(buffer, format, &count, ap);
 	write(1, buffer, count);
 	free(buffer);
