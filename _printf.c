@@ -40,10 +40,7 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 				case '\0':
 					return (NULL);
 				default:
-					buffer = nest(buffer, count, &i, '%');
-					i--;
-					buffer = nest(buffer, count, &i, format[i]);
-					break;
+					return (NULL);
 			}
 			continue;
 		}
