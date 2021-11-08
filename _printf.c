@@ -72,7 +72,9 @@ int _printf(const char *format, ...)
 		free(buffer);
 		return (-1);
 	}
+
 	buffer = switch_case(buffer, format, &count, ap);
+	count -= 1;
 	write(1, buffer, count);
 	free(buffer);
 	va_end(ap);
