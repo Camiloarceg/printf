@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdlib.h>
 /**
- * nest_int - nest a string.
+ * nest_int - nest an int.
  * @buffer: the buffer to print.
  * @count: pointer to the char count of the buffer.
  * @i: index of format.
