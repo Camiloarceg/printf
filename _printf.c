@@ -70,7 +70,7 @@ int _printf(const char *format, ...)
 	if (buffer == NULL)
 		return(NULL);
 	buffer = switch_case(buffer, format, &count, ap);
-	write(1, buffer, count);
+	write(1, buffer, count - 1);
 	free(buffer);
 	va_end(ap);
 	return (count);
