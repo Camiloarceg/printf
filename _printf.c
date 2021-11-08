@@ -38,7 +38,7 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 					buffer = nest_int(buffer, count, &i, va_arg(ap, int));
 					break;
 				case '\0':
-					break;
+					return (NULL);
 				default:
 					buffer = nest(buffer, count, &i, '%');
 					i--;
@@ -69,11 +69,17 @@ int _printf(const char *format, ...)
 	buffer = (char *)malloc(count);
 	if (!format || !buffer || (*format == '%' && *(format + 1) == '\0'))
 	{
+		va_end(ap);
 		free(buffer);
 		return (-1);
 	}
 
 	buffer = switch_case(buffer, format, &count, ap);
+	if (!buffer)
+	{
+		va_end(ap);
+		return (-1);
+	}
 	count -= 1;
 	write(1, buffer, count);
 	free(buffer);
