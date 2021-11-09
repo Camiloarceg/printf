@@ -3,6 +3,30 @@
 #include <unistd.h>
 #include <stdio.h>
 /**
+ * switch_case_adv - switch case for advance functions.
+ * @buffer: pointer to buffer.
+ * @format: pointer to format.
+ * @count: pointer to count.
+ * @ap: argument pointer
+ * @i: index for format.
+ *
+ * Return: new buffer.
+ */
+char *switch_case_adv(char *buffer, const char *format, int *count,
+		va_list ap, int *i)
+{
+	switch (format[*i])
+	{
+		case 'r':
+			buffer = neststring_r(buffer, va_arg(ap, char *), count, i);
+			break;
+		default:
+			break;
+	}
+return (buffer);
+}
+
+/**
  * switch_case - switch case functions.
  * @buffer: pointer to buffer.
  * @format: pointer to format.
@@ -20,16 +44,17 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 		if (format[i] == '%')
 		{
 			i++;
-			switch (format[i])
+			if (format[i] == 'r')
 			{
-				case 'c':
+				buffer = switch_case_adv(buffer, format, count, ap, &i);
+				continue;
+			}
+			switch (format[i])
+			{	case 'c':
 					buffer = nest(buffer, count, &i, va_arg(ap, int));
 					break;
 				case 's':
 					buffer = neststring(buffer, va_arg(ap, char *), count, &i);
-					break;
-				case 'r':
-					buffer = neststring_r(buffer, va_arg(ap, char *), count, &i);
 					break;
 				case '%':
 					buffer = nest(buffer, count, &i, '%');
@@ -47,8 +72,7 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 					i--;
 					buffer = nest(buffer, count, &i, format[i]);
 					break;
-			}
-			continue;
+			} continue;
 		}
 		buffer = nest(buffer, count, &i, format[i]);
 	}
