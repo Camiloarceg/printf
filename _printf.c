@@ -88,12 +88,11 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 int _printf(const char *format, ...)
 {
 	char *buffer;
-	int count;
+	int count = 0;
 	va_list ap;
 
 	va_start(ap, format);
-	count = sizeof(char) * 1;
-	buffer = (char *)malloc(count);
+	buffer = (char *)malloc(1024);
 	if (!format || !buffer || (*format == '%' && *(format + 1) == '\0'))
 	{
 		va_end(ap);
@@ -107,7 +106,6 @@ int _printf(const char *format, ...)
 		va_end(ap);
 		return (-1);
 	}
-	count -= 1;
 	write(1, buffer, count);
 	free(buffer);
 	va_end(ap);
