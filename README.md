@@ -19,3 +19,6 @@ _printf project is a emulation of "printf" function for c languaje. printf forma
 | neststring.c  | Creates and initializes the buffer to print an string in it.  |
 | nestint.c  | Creates and initializes the buffer to print an int in it.  |
 | man_3_printf  | Our manual with documentation about the function _printf  |
+
+## Flowchart:
+![_printf](https://cdn.discordapp.com/attachments/242350770161188864/907432106903367741/printf.drawio.png "_printf")
