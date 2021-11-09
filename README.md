@@ -7,6 +7,7 @@ _printf project is a emulation of "printf" function for c languaje. printf forma
 - The buffer is created by allocating memory according to the size of the case.
 - The returns of our function are the number of characters printed, and when there's an incorrect input the return is going to be -1 as an error, just like the original printf.
 - when buffer is complete then it is use on "write()" to be printed to standar output
+- When the algorithm finds the existence of a special case, it calls switch case advance "switch_case_adv" so that it is executed
 
 ------
 ## Files and Descriptions
@@ -18,7 +19,9 @@ _printf project is a emulation of "printf" function for c languaje. printf forma
 | nest.c  | Creates and initializes the buffer to print an char in it. |
 | neststring.c  | Creates and initializes the buffer to print an string in it.  |
 | nestint.c  | Creates and initializes the buffer to print an int in it.  |
+| neststring_r.c  | Creates and initializes the buffer to print an reverse string in it. |
 | man_3_printf  | Our manual with documentation about the function _printf  |
 
+
 ## Flowchart:
-![_printf](https://cdn.discordapp.com/attachments/242350770161188864/907433160160211084/printf.jpg "_printf")
+![_printf](https://cdn.discordapp.com/attachments/242350770161188864/907684785609117716/printf_1.jpg "_printf")
