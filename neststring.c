@@ -14,6 +14,8 @@ char *neststring(char *buffer, char *s, int *count, int *i)
 	char *p;
 	unsigned int k = 0, j = 0, old_size = *count, len;
 
+	if (s == NULL)
+		s = "(null)";
 	len = _strlen(s);
 	*count += len;
 
