@@ -28,6 +28,9 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 				case 's':
 					buffer = neststring(buffer, va_arg(ap, char *), count, &i);
 					break;
+				case 'r':
+					buffer = neststring_r(buffer, va_arg(ap, char *), count, &i);
+					break;
 				case '%':
 					buffer = nest(buffer, count, &i, '%');
 					break;

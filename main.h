@@ -7,5 +7,6 @@ char *nest(char *buffer, int *count, int *i, char c);
 char *neststring(char *buffer, char *s, int *count, int *i);
 char *nest_int(char *buffer, int *count, int *i, int n);
 int _strlen(char *s);
+char *neststring_r(char *buffer, char *s, int *count, int *i);
 
 #endif
