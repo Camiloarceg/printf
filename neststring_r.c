@@ -11,17 +11,36 @@
  */
 char *neststring_r(char *buffer, char *s, int *count, int *i)
 {
-	unsigned int j = 1, len;
+	char *p;
+	unsigned int k = 0, j = 0, old_size = *count, len;
 
 	if (s == NULL)
 		s = "(null)";
 	len = _strlen(s);
-	while (j <= len)
+	*count += len;
+
+	p = (char *)malloc(*count);
+	if (p == NULL)
 	{
-		buffer[*count] = s[len - j];
-		*count += 1;
+		free(p);
+		return (NULL);
+	}
+
+	while (k < old_size)
+	{
+		p[k] = buffer[k];
+		k++;
+	}
+
+	k = k - 1;
+	len = len - 1;
+	while (k < old_size + len)
+	{
+		p[k] = s[len - j];
+		k++;
 		j++;
 	}
 	*i += 1;
-	return (buffer);
+	free(buffer);
+	return (p);
 }

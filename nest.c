@@ -11,9 +11,24 @@
  */
 char *nest(char *buffer, int *count, int *i, char c)
 {
+	char *p;
+	int j = 0;
 
-	buffer[*count] = c;
+	p = (char *)malloc(*count + 1);
+	if (p == NULL)
+	{
+		free(p);
+		return (NULL);
+	}
+	while (j < *count)
+	{
+		p[j] = buffer[j];
+		j++;
+	}
+	p[j - 1] = c;
+	p[j] = '\0';
+	free(buffer);
 	*i += 1;
 	*count += 1;
-	return (buffer);
+	return (p);
 }
