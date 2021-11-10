@@ -11,23 +11,31 @@
  */
 char *nest_bin(char *buffer, int *count, int *i, int n)
 {
+	unsigned int x;
 	int b, j;
 
-	if (n <= 0)
+	if (n == 0)
 	{
 		buffer = nest(buffer, count, i, '0');
 		return (buffer);
 	}
 
-	b = n % 2;
-	n = n / 2;
-
-	if (n >= 2)
+	if (n < 0)
 	{
-		buffer = nest_bin(buffer, count, &j, n);
+		free(buffer);
+		return (NULL);
+	}
+
+	x = n;
+	b = x % 2;
+	x = x / 2;
+
+	if (x >= 2)
+	{
+		buffer = nest_bin(buffer, count, &j, x);
 	}
 	else
-		buffer = nest(buffer, count, &j, n + '0');
+		buffer = nest(buffer, count, &j, x + '0');
 
 	buffer = nest(buffer, count, i, b + '0');
 
