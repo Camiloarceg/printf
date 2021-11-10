@@ -20,6 +20,9 @@ char *switch_case_adv(char *buffer, const char *format, int *count,
 		case 'r':
 			buffer = neststring_r(buffer, va_arg(ap, char *), count, i);
 			break;
+		case 'b':
+			buffer = nest_bin(buffer, count, i, va_arg(ap, int));
+			break;
 		default:
 			break;
 	}
@@ -44,7 +47,7 @@ char *switch_case(char *buffer, const char *format, int *count, va_list ap)
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == 'r')
+			if (format[i] == 'r' || format[i] == 'b')
 			{
 				buffer = switch_case_adv(buffer, format, count, ap, &i);
 				continue;
