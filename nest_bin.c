@@ -13,6 +13,12 @@ char *nest_bin(char *buffer, int *count, int *i, int n)
 {
 	int b, j;
 
+	if (n <= 0)
+	{
+		buffer = nest(buffer, count, i, '0');
+		return (buffer);
+	}
+
 	b = n % 2;
 	n = n / 2;
 
